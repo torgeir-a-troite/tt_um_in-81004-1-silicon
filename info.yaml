@@ -1,9 +1,9 @@
 # Tiny Tapeout project information
 project:
-  title:        "add 42"      # Project title
-  author:       "torgeir"      # Your name
+  title:        "in-81004-1 silicon"      # Project title
+  author:       "Torgeir Trøite"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "adding two numbers"      # One line description of what your project does
+  description:  "Silicon Design Evolution"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     0       # Clock frequency in Hz (or 0 if not applicable)
 
