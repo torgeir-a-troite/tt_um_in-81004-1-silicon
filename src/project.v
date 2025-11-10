@@ -17,17 +17,17 @@ module tt_um_project (
 );
 
   // Define a 128 byte memory array
-  reg [7:0] memory [0:31];
+  reg [7:0] memory [0:15];
 
   // Memory signals
-  wire [4:0] mem_addr;
+  wire [3:0] mem_addr;
   wire [7:0] mem_wdata;
   reg  [7:0] mem_rdata;
   wire       mem_wr;
 
   // Map input signals to memory signals
-  assign mem_addr  = ui_in[4:0];
-  assign mem_wr    = ui_in[5];
+  assign mem_addr  = ui_in[3:0];
+  assign mem_wr    = ui_in[7];
   assign mem_wdata = uio_in;
 
   // Map memory signals to output signals
@@ -35,7 +35,7 @@ module tt_um_project (
   assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ui_in[7:6], ena, 1'b0};
+  wire _unused = &{ui_in[6:4], ena, 1'b0};
 
   // Memory process
   always @(posedge clk) begin
