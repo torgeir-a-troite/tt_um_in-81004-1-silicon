@@ -16,25 +16,35 @@ module tt_um_project (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
+  // Define a 128 byte memory array
+  reg [7:0] memory [0:127];
+
+  // Memory signals
+  wire [6:0] mem_addr;
+  wire [7:0] mem_wdata;
+  reg  [7:0] mem_rdata;
+  wire       mem_wr;
+
+  // Map input signals to memory signals
+  assign mem_addr  = ui_in[6:0];
+  assign mem_wr    = ui_in[7];
+  assign mem_wdata = uio_in;
+
+  // Map memory signals to output signals
   assign uio_out = 0;
   assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, 1'b0};
 
-  reg [7:0] y_q = 0;
-
+  // Memory process
   always @(posedge clk) begin
-      if (!rst_n) begin
-          y_q <= 0;
-      end else begin
-          // unsigned wrap-around add; result registered (1-cycle latency)
-          y_q <= ui_in + uio_in;
+      if (mem_wr) begin
+          memory[mem_addr] <= mem_wdata;
       end
+      mem_rdata <= memory[mem_addr];
   end
 
-  assign uo_out = y_q;
-
+  assign uo_out = mem_rdata;
 
 endmodule
